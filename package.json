@@ -21,9 +21,6 @@
     "tailwind-merge": "^3.3.1",
     "zustand": "^5.0.6"
   },
-  "overrides": {
-    "tar": "^7.5.22"
-  },
   "devDependencies": {
     "@react-router/dev": "^7.5.3",
     "@tailwindcss/vite": "^4.1.4",
@@ -35,5 +32,8 @@
     "typescript": "^5.8.3",
     "vite": "^6.3.3",
     "vite-tsconfig-paths": "^5.1.4"
+  },
+  "overrides": {
+    "tar": "^7.5.22"
   }
 }
