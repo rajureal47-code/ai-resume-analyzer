@@ -19,10 +19,6 @@ const Resume = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!isLoading && !auth.isAuthenticated) navigate(`/auth?next=/resume/${id}`);
-    }, [isLoading])
-
-    useEffect(() => {
         const loadResume = async () => {
             const resume = await kv.get(`resume:${id}`);
 
