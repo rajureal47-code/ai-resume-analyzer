@@ -88,6 +88,9 @@ const Upload = () => {
                     {isProcessing ? (
                         <>
                             <h2>{statusText}</h2>
+                            <p className="text-sm text-gray-500 mt-1">
+                                ⏳ AI analysis can take 1–2 minutes. Please keep this page open.
+                            </p>
                             <img src="/images/resume-scan.gif" className="w-full" />
                         </>
                     ) : (
