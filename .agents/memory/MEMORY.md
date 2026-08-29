@@ -1,0 +1,1 @@
+- [Company logo assets](company-logo-assets.md) — Keep homepage company logos self-contained to avoid blocked external CDN requests.

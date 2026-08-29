@@ -49,7 +49,25 @@ form {
   @apply flex flex-col items-start gap-8 w-full;
 }
 
+@keyframes marquee {
+  from { transform: translateX(0); }
+  /* Move one complete track, including the 0.75rem space between tracks. */
+  to   { transform: translate3d(calc(-50% - 0.375rem), 0, 0); }
+}
+
 @layer components {
+  .animate-marquee {
+    animation: marquee 32s linear infinite;
+    will-change: transform;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+      animation: none;
+    }
+  }
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-[#AB8C95] via-[#000000] to-[#8E97C5];
   }
