@@ -223,6 +223,21 @@ export const AIResponseFormat = `
           explanation: string; //explain in detail here
         }[]; //give 3-4 tips
       };
+      jobMatch: {
+        score: number; //max 100, based on the resume and supplied job description
+        summary: string;
+        matchedKeywords: string[];
+        missingKeywords: string[];
+        recommendedKeywords: string[];
+      };
+      improvements: {
+        summaryRewrite: string;
+        bulletRewrites: {
+          before: string;
+          after: string;
+        }[];
+        quickWins: string[];
+      };
     }`;
 
 export const prepareInstructions = ({jobTitle, jobDescription}: { jobTitle: string; jobDescription: string; }) =>
@@ -237,5 +252,7 @@ export const prepareInstructions = ({jobTitle, jobDescription}: { jobTitle: stri
       The job description is: ${jobDescription}
       Provide the feedback using the following format:
       ${AIResponseFormat}
-      Return the analysis as an JSON object, without any other text and without the backticks.
+       Also return a jobMatch object with a match score, a short summary, matching keywords, missing keywords, and recommended keywords.
+       Also return an improvements object with a rewritten professional summary, up to 4 before/after bullet rewrites, and quick wins.
+       Return the analysis as a JSON object, without any other text and without the backticks.
       Do not include any other text or comments.`;

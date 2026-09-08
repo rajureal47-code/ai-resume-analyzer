@@ -3,7 +3,8 @@ import ScoreCircle from "~/components/ScoreCircle";
 import {useEffect, useState} from "react";
 import {usePuterStore} from "~/lib/puter";
 
-const ResumeCard = ({ resume: { id, companyName, jobTitle, feedback, imagePath } }: { resume: Resume }) => {
+const ResumeCard = ({ resume }: { resume: Resume }) => {
+    const { id, companyName, jobTitle, feedback, imagePath } = resume;
     const { fs } = usePuterStore();
     const [resumeUrl, setResumeUrl] = useState('');
 
@@ -27,8 +28,18 @@ const ResumeCard = ({ resume: { id, companyName, jobTitle, feedback, imagePath }
                     {!companyName && !jobTitle && <h2 className="!text-black font-bold">Resume</h2>}
                 </div>
                 <div className="flex-shrink-0">
-                    <ScoreCircle score={feedback.overallScore} />
+                    <ScoreCircle score={feedback?.overallScore || 0} />
                 </div>
+            </div>
+            <div className="flex items-center justify-between text-sm">
+                <span className="rounded-full bg-indigo-50 px-3 py-1 font-medium capitalize text-indigo-700">
+                    {(resume.status || "saved").replace("-", " ")}
+                </span>
+                {resume.createdAt && (
+                    <span className="text-gray-400">
+                        {new Date(resume.createdAt).toLocaleDateString()}
+                    </span>
+                )}
             </div>
             {resumeUrl && (
                 <div className="gradient-border animate-in fade-in duration-1000">

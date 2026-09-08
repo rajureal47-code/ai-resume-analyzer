@@ -23,15 +23,27 @@ const Upload = () => {
 
         setStatusText('Uploading the file...');
         const uploadedFile = await fs.upload([file]);
-        if(!uploadedFile) return setStatusText('Error: Failed to upload file');
+        if(!uploadedFile) {
+            setStatusText('Error: Failed to upload file');
+            setIsProcessing(false);
+            return;
+        }
 
         setStatusText('Converting to image...');
         const imageFile = await convertPdfToImage(file);
-        if(!imageFile.file) return setStatusText('Error: Failed to convert PDF to image');
+        if(!imageFile.file) {
+            setStatusText('Error: Failed to convert PDF to image');
+            setIsProcessing(false);
+            return;
+        }
 
         setStatusText('Uploading the image...');
         const uploadedImage = await fs.upload([imageFile.file]);
-        if(!uploadedImage) return setStatusText('Error: Failed to upload image');
+        if(!uploadedImage) {
+            setStatusText('Error: Failed to upload image');
+            setIsProcessing(false);
+            return;
+        }
 
         setStatusText('Preparing data...');
         const uuid = generateUUID();
@@ -40,7 +52,10 @@ const Upload = () => {
             resumePath: uploadedFile.path,
             imagePath: uploadedImage.path,
             companyName, jobTitle, jobDescription,
-            feedback: '',
+            feedback: null,
+            status: 'saved' as ApplicationStatus,
+            notes: '',
+            createdAt: Date.now(),
         }
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
@@ -50,13 +65,22 @@ const Upload = () => {
             uploadedFile.path,
             prepareInstructions({ jobTitle, jobDescription })
         )
-        if (!feedback) return setStatusText('Error: Failed to analyze resume');
+        if (!feedback) {
+            setStatusText('Error: Failed to analyze resume');
+            setIsProcessing(false);
+            return;
+        }
 
-        const feedbackText = typeof feedback.message.content === 'string'
-            ? feedback.message.content
-            : feedback.message.content[0].text;
-
-        data.feedback = JSON.parse(feedbackText);
+        try {
+            const feedbackText = typeof feedback.message.content === 'string'
+                ? feedback.message.content
+                : feedback.message.content[0].text;
+            data.feedback = JSON.parse(feedbackText);
+        } catch {
+            setStatusText('Error: AI returned an invalid analysis. Please try again.');
+            setIsProcessing(false);
+            return;
+        }
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
         setStatusText('Analysis complete, redirecting...');
         console.log(data);
@@ -100,15 +124,15 @@ const Upload = () => {
                         <form id="upload-form" onSubmit={handleSubmit} className="flex flex-col gap-4 mt-8">
                             <div className="form-div">
                                 <label htmlFor="company-name">Company Name</label>
-                                <input type="text" name="company-name" placeholder="Company Name" id="company-name" />
+                                <input type="text" name="company-name" placeholder="Company Name" id="company-name" required />
                             </div>
                             <div className="form-div">
                                 <label htmlFor="job-title">Job Title</label>
-                                <input type="text" name="job-title" placeholder="Job Title" id="job-title" />
+                                <input type="text" name="job-title" placeholder="Job Title" id="job-title" required />
                             </div>
                             <div className="form-div">
                                 <label htmlFor="job-description">Job Description</label>
-                                <textarea rows={5} name="job-description" placeholder="Job Description" id="job-description" />
+                                <textarea rows={5} name="job-description" placeholder="Paste the job description for a more accurate match" id="job-description" required />
                             </div>
 
                             <div className="form-div">
