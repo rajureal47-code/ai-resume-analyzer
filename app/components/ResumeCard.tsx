@@ -4,20 +4,45 @@ import {useEffect, useState} from "react";
 import {usePuterStore} from "~/lib/puter";
 
 const ResumeCard = ({ resume }: { resume: Resume }) => {
-    const { id, companyName, jobTitle, feedback, imagePath } = resume;
-    const { fs } = usePuterStore();
-    const [resumeUrl, setResumeUrl] = useState('');
+    const { id, companyName, jobTitle, feedback, imagePath, resumePath } = resume;
+    const { fs, puterReady } = usePuterStore();
+    const [preview, setPreview] = useState<{ url: string; type: 'image' | 'pdf' } | null>(null);
 
     useEffect(() => {
+        if (!puterReady) return;
+        let cancelled = false;
+        let objectUrl = '';
+
         const loadResume = async () => {
-            const blob = await fs.read(imagePath);
-            if(!blob) return;
-            let url = URL.createObjectURL(blob);
-            setResumeUrl(url);
-        }
+            try {
+                if (imagePath) {
+                    const imageBlob = await fs.read(imagePath);
+                    if (imageBlob) {
+                        objectUrl = URL.createObjectURL(imageBlob);
+                        if (!cancelled) setPreview({ url: objectUrl, type: 'image' });
+                        return;
+                    }
+                }
+
+                if (resumePath) {
+                    const pdfBlob = await fs.read(resumePath);
+                    if (pdfBlob) {
+                        objectUrl = URL.createObjectURL(new Blob([pdfBlob], { type: 'application/pdf' }));
+                        if (!cancelled) setPreview({ url: objectUrl, type: 'pdf' });
+                    }
+                }
+            } catch {
+                if (!cancelled) setPreview(null);
+            }
+        };
 
         loadResume();
-    }, [imagePath]);
+
+        return () => {
+            cancelled = true;
+            if (objectUrl) URL.revokeObjectURL(objectUrl);
+        };
+    }, [fs, imagePath, puterReady, resumePath]);
 
     return (
         <Link to={`/resume/${id}`} className="resume-card animate-in fade-in duration-1000">
@@ -41,17 +66,25 @@ const ResumeCard = ({ resume }: { resume: Resume }) => {
                     </span>
                 )}
             </div>
-            {resumeUrl && (
+            {preview && (
                 <div className="gradient-border animate-in fade-in duration-1000">
-                    <div className="w-full h-full">
-                        <img
-                            src={resumeUrl}
-                            alt="resume"
-                            className="w-full h-[350px] max-sm:h-[200px] object-cover object-top"
-                        />
+                    <div className="h-[350px] w-full overflow-hidden rounded-xl bg-gray-50 max-sm:h-[200px]">
+                        {preview.type === 'image' ? (
+                            <img
+                                src={preview.url}
+                                alt="Resume preview"
+                                className="h-full w-full object-cover object-top"
+                            />
+                        ) : (
+                            <iframe
+                                src={`${preview.url}#page=1&view=FitH`}
+                                title="Resume PDF preview"
+                                className="h-full w-full border-0"
+                            />
+                        )}
                     </div>
                 </div>
-                )}
+            )}
         </Link>
     )
 }
