@@ -99,11 +99,11 @@ form {
     @apply flex flex-col items-center gap-8 max-w-4xl text-center;
   }
   .resumes-section {
-    @apply flex flex-wrap max-lg:flex-col gap-6 items-start  w-full max-w-[1850px] justify-evenly;
+    @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start w-full max-w-[1850px];
   }
 
   .resume-card {
-    @apply flex flex-col gap-8 h-[560px] w-full lg:w-[450px] xl:w-[490px] bg-white rounded-2xl p-4;
+    @apply flex h-auto min-h-[560px] w-full flex-col gap-8 overflow-hidden rounded-2xl bg-white p-4;
   }
 
   .resume-card-header {
