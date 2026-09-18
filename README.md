@@ -1,135 +1,160 @@
-<div align="center">
-  <br />
-    <a href="https://www.youtube.com/watch?v=iYOz165wGkQ" target="_blank">
-      <img src="public/readme/hero.webp" alt="Project Banner">
-    </a>
-  <br />
+# Resumind — AI Resume Analyzer
 
-  <div>
-    <img alt="Static Badge" src="https://img.shields.io/badge/React-4c84f3?style=for-the-badge&logo=react&logoColor=white">
-        <img src="https://img.shields.io/badge/-Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-        <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="TypeScript" />
-    <img alt="Static Badge" src="https://img.shields.io/badge/Puter.js-181758?style=for-the-badge&logoColor=white">
-  </div>
+Resumind is an AI-powered resume and job application assistant. Upload a resume, add the target company and job description, and receive tailored feedback instead of a generic resume score.
 
-  <h3 align="center">AI Resume Analyzer</h3>
+This project uses Puter for authentication, file storage, and AI requests. Users sign in with Puter before uploading resumes or generating application materials.
 
-   <div align="center">
-     Build this project step by step with our detailed tutorial on <a href="https://www.youtube.com/watch?v=XUkNR-JfHwo" target="_blank"><b>JavaScript Mastery</b></a> YouTube. Join the JSM family!
-    </div>
-</div>
+## Features
 
-## 📋 <a name="table">Table of Contents</a>
+- Resume upload and PDF preview
+- ATS score and resume quality feedback
+- Job match score based on the target job description
+- Matching, missing, and recommended keywords
+- AI-rewritten professional summary
+- Before-and-after resume bullet suggestions
+- Quick improvement checklist
+- Customized cover letter generation
+- Interview questions and answer guidance for each resume and job description
+- Application tracker with these statuses:
+  - Saved
+  - Applied
+  - Interview
+  - Offer
+  - Rejected
+- Application notes
+- Homepage search and status filters
+- Downloadable review summary
+- Responsive resume dashboard
+- Inline company logo marquee
+- Automatic resume preview fallback to the original PDF
 
-1. ✨ [Introduction](#introduction)
-2. ⚙️ [Tech Stack](#tech-stack)
-3. 🔋 [Features](#features)
-4. 🤸 [Quick Start](#quick-start)
-5. 🔗 [Assets](#links)
-6. 🚀 [More](#more)
+## Screenshots
 
-## 🚨 Tutorial
+### Resume analysis examples
 
-This repository contains the code corresponding to an in-depth tutorial available on our YouTube channel, <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a>.
+<p align="center">
+  <img src="public/images/resume_01.png" alt="Resume example one" width="31%" />
+  <img src="public/images/resume_02.png" alt="Resume example two" width="31%" />
+  <img src="public/images/resume_03.png" alt="Resume example three" width="31%" />
+</p>
 
-If you prefer visual learning, this is the perfect resource for you. Follow our tutorial to learn how to build projects like these step-by-step in a beginner-friendly manner!
+### Application dashboard
 
-<a href="https://www.youtube.com/watch?v=iYOz165wGkQ" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/1736fca5-a031-4854-8c09-bc110e3bc16d" /></a>
+The dashboard shows saved applications, scores, dates, statuses, search, and filtering.
 
-## <a name="introduction">✨ Introduction</a>
+![Application dashboard preview](attached_assets/targeted_element_1788891677437.png)
 
-Build an AI-powered Resume Analyzer with React, React Router, and Puter.js! Implement seamless auth, upload and store resumes, and match candidates to jobs using smart AI evaluations. Get custom feedback and ATS scores tailored to each listing—all wrapped in a clean, reusable UI.
+## How the AI works
 
-If you're getting started and need assistance or face any bugs, join our active Discord community with over **50k+** members. It's a place where people help each other out.
+The app sends the uploaded resume file and the supplied job information to Puter AI. The current model is:
 
-<a href="https://discord.com/invite/n6EdbFJ" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/618f4872-1e10-42da-8213-1d69e486d02e" /></a>
-
-## <a name="tech-stack">⚙️ Tech Stack</a>
-
-- **[React](https://react.dev/)** is a popular open‑source JavaScript library for building user interfaces using reusable components and a virtual DOM, enabling efficient, dynamic single-page and native apps.
-
-- **[React Router v7](https://reactrouter.com/)** is the go‑to routing library for React apps, offering nested routes, data loaders/actions, error boundaries, code splitting, and SSR support—all with a smooth upgrade path from v6.
-
-- **[Puter.com](https://jsm.dev/resumind-puter)** is an advanced, open-source internet operating system designed to be feature-rich, exceptionally fast, and highly extensible. Puter can be used as: A privacy-first personal cloud to keep all your files, apps, and games in one secure place, accessible from anywhere at any time.
-
-- **[Puter.js](https://jsm.dev/resumind-puterjs)** is a tiny client‑side SDK that adds serverless auth, storage, database, and AI (GPT, Claude, DALL·E, OCR…) straight into your browser app—no backend needed and costs borne by users.
-
-- **[Tailwind CSS](https://tailwindcss.com/)** is a utility-first CSS framework that allows developers to design custom user interfaces by applying low-level utility classes directly in HTML, streamlining the design process.
-
-- **[TypeScript](https://www.typescriptlang.org/)** is a superset of JavaScript that adds static typing, providing better tooling, code quality, and error detection for developers, making it ideal for building large-scale applications.
-
-- **[Vite](https://vite.dev/)** is a fast build tool and dev server using native ES modules for instant startup, hot‑module replacement, and Rollup‑powered production builds—perfect for modern web development.
-
-- **[Zustand](https://github.com/pmndrs/zustand)** is a minimal, hook-based state management library for React. It lets you manage global state with zero boilerplate, no context providers, and excellent performance through selective state subscriptions.
-
-## <a name="features">🔋 Features</a>
-
-👉 **Easy & convenient auth**: Handle authentication entirely in the browser using Puter.js—no backend or setup required.
-
-👉 **Resume upload & storage**: Let users upload and store all their resumes in one place, safely and reliably.
-
-👉 **AI resume matching**: Provide a job listing and get an ATS score with custom feedback tailored to each resume.
-
-👉 **Reusable, modern UI**: Built with clean, consistent components for a great-looking and maintainable interface.
-
-👉 **Code Reusability**: Leverage reusable components and a modular codebase for efficient development.
-
-👉 **Cross-Device Compatibility**: Fully responsive design that works seamlessly across all devices.
-
-👉 **Modern UI/UX**: Clean, responsive design built with Tailwind CSS and shadcn/ui for a sleek user experience.
-
-And many more, including code architecture and reusability.
-
-## <a name="quick-start">🤸 Quick Start</a>
-
-Follow these steps to set up the project locally on your machine.
-
-**Prerequisites**
-
-Make sure you have the following installed on your machine:
-
-- [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/en)
-- [npm](https://www.npmjs.com/) (Node Package Manager)
-
-**Cloning the Repository**
-
-```bash
-git clone https://github.com/adrianhajdin/ai-resume-analyzer.git
-cd ai-resume-analyzer
+```text
+gpt-4o-mini
 ```
 
-**Installation**
+The AI receives:
 
-Install the project dependencies using npm:
+- The uploaded resume
+- Company name
+- Job title
+- Job description
+
+This allows the job match, cover letter, and interview questions to be tailored to both the candidate and the specific role.
+
+The app does not contain an OpenAI API key. Puter manages the AI request through the signed-in user's Puter session.
+
+## Tech stack
+
+- React 19
+- React Router 7
+- TypeScript
+- Vite
+- Tailwind CSS
+- Zustand
+- Puter.js
+- `pdfjs-dist`
+- `react-dropzone`
+
+## Getting started
+
+### Prerequisites
+
+- Node.js 20 or newer
+- npm
+- A Puter account for authentication, storage, and AI analysis
+
+### Installation
 
 ```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+cd YOUR_REPOSITORY
 npm install
 ```
 
-**Running the Project**
+### Start the development server
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser to view the project.
+The Replit workflow serves the app on port `5000`.
 
-## <a name="links">🔗 Assets</a>
+### Production build
 
-Assets and snippets used in the project can be found in the **[video kit](https://jsm.dev/resumind-kit)**.
+```bash
+npm run typecheck
+npm run build
+npm start
+```
 
-<a href="https://jsm.dev/resumind-kit" target="_blank">
-  <img src="public/readme/videokit.webp" alt="Video Kit Banner">
-</a>
+## Using the app
 
-## <a name="more">🚀 More</a>
+1. Open the app and sign in with Puter.
+2. Choose **Upload Resume**.
+3. Enter the company name.
+4. Enter the target job title.
+5. Paste the job description.
+6. Upload a PDF resume.
+7. Select **Analyze Resume**.
+8. Review the ATS score, job match, keywords, and improvement suggestions.
+9. Generate a cover letter or interview preparation.
+10. Set the application status and add notes.
 
-**Advance your skills with Next.js Pro Course**
+Interview questions and generated application materials are saved with the related resume and job application.
 
-Enjoyed creating this project? Dive deeper into our PRO courses for a richer learning adventure. They're packed with
-detailed explanations, cool features, and exercises to boost your skills. Give it a go!
+## Data and privacy
 
-<a href="https://jsm.dev/resumind-courses" target="_blank">
-  <img src="public/readme/jsmpro.webp" alt="Project Banner">
-</a>
+Resumes may contain personal information. Resume files and application records are stored through Puter for the signed-in user.
+
+- Do not upload resumes that you do not have permission to process.
+- Review Puter's privacy and usage policies before using the app with sensitive documents.
+- Delete stored resume data when it is no longer needed.
+- Never commit `.env` files, API keys, passwords, session secrets, or private credentials.
+
+This project does not require an OpenAI API key in the source code. Replit-managed secrets remain outside the repository.
+
+## Validation
+
+Run these checks before publishing changes:
+
+```bash
+npm run typecheck
+npm run build
+```
+
+## Replit configuration
+
+The project is configured for Replit with:
+
+- Development server port `5000`
+- Host `0.0.0.0`
+- Proxied hosts enabled
+- `npm run dev` as the workflow command
+
+## Attribution
+
+This project is based on the open-source AI Resume Analyzer project by Adrian Hajdin:
+
+https://github.com/adrianhajdin/ai-resume-analyzer
+
+The current version includes additional job matching, resume improvement, cover letter, interview preparation, application tracking, dashboard filtering, and resume preview improvements.
