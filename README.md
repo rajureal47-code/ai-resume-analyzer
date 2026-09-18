@@ -1,160 +1,112 @@
 # Resumind — AI Resume Analyzer
 
-Resumind is an AI-powered resume and job application assistant. Upload a resume, add the target company and job description, and receive tailored feedback instead of a generic resume score.
+Resumind is a browser-based AI resume analyzer that helps job seekers tailor a resume to a specific role. Upload a PDF resume, add the target company, role, and job description, and receive an ATS-focused review with practical, role-specific recommendations.
 
-This project uses Puter for authentication, file storage, and AI requests. Users sign in with Puter before uploading resumes or generating application materials.
+The application uses Puter.js for authentication, file storage, key-value persistence, and AI features, so it does not require a separate backend or API keys.
 
 ## Features
 
-- Resume upload and PDF preview
-- ATS score and resume quality feedback
-- Job match score based on the target job description
-- Matching, missing, and recommended keywords
-- AI-rewritten professional summary
-- Before-and-after resume bullet suggestions
-- Quick improvement checklist
-- Customized cover letter generation
-- Interview questions and answer guidance for each resume and job description
-- Application tracker with these statuses:
-  - Saved
-  - Applied
-  - Interview
-  - Offer
-  - Rejected
-- Application notes
-- Homepage search and status filters
-- Downloadable review summary
-- Responsive resume dashboard
-- Inline company logo marquee
-- Automatic resume preview fallback to the original PDF
+- Secure sign-in through Puter
+- PDF-only resume upload with a 20 MB file limit
+- AI-powered resume analysis tailored to a job title and description
+- Overall score plus detailed ATS, content, structure, skills, and tone feedback
+- Job-match score with matched, missing, and recommended keywords
+- Suggested professional-summary and experience-bullet rewrites
+- AI-generated cover letters and interview-preparation questions
+- Application tracker with search and status filters (`Saved`, `Applied`, `Interview`, `Offer`, and `Rejected`)
+- Cloud-backed storage for uploaded resumes and analysis results
 
 ## Screenshots
 
-### Resume analysis examples
+### Application Dashboard & Tracking
+![Dashboard](./public/readme/dashboard.png)
 
+### Authentication Flow
 <p align="center">
-  <img src="public/images/resume_01.png" alt="Resume example one" width="31%" />
-  <img src="public/images/resume_02.png" alt="Resume example two" width="31%" />
-  <img src="public/images/resume_03.png" alt="Resume example three" width="31%" />
+  <img src="./public/readme/login.png" alt="Login screen" width="48%" />
+  <img src="./public/readme/puter-auth.png" alt="Puter authentication" width="48%" />
 </p>
 
-### Application dashboard
+### Job Details & Resume Upload
+![Upload Form](./public/readme/upload-form.png)
 
-The dashboard shows saved applications, scores, dates, statuses, search, and filtering.
+### AI ATS Score & Feedback Analysis
+![Analysis Result](./public/readme/analysis-result.png)
 
-![Application dashboard preview](attached_assets/targeted_element_1788891677437.png)
-
-## How the AI works
-
-The app sends the uploaded resume file and the supplied job information to Puter AI. The current model is:
-
-```text
-gpt-4o-mini
-```
-
-The AI receives:
-
-- The uploaded resume
-- Company name
-- Job title
-- Job description
-
-This allows the job match, cover letter, and interview questions to be tailored to both the candidate and the specific role.
-
-The app does not contain an OpenAI API key. Puter manages the AI request through the signed-in user's Puter session.
-
-## Tech stack
+## Tech Stack
 
 - React 19
-- React Router 7
+- React Router v7
 - TypeScript
 - Vite
-- Tailwind CSS
+- Tailwind CSS v4
 - Zustand
+- React Dropzone
+- PDF.js
 - Puter.js
-- `pdfjs-dist`
-- `react-dropzone`
 
-## Getting started
+## Getting Started
 
 ### Prerequisites
 
-- Node.js 20 or newer
+- Node.js 18 or later
 - npm
-- A Puter account for authentication, storage, and AI analysis
+- A Puter account to use the application features
 
 ### Installation
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-cd YOUR_REPOSITORY
+git clone <your-repository-url>
+cd ai-resume-analyzer
 npm install
 ```
 
-### Start the development server
+### Run locally
 
 ```bash
 npm run dev
 ```
 
-The Replit workflow serves the app on port `5000`.
+Open the local address shown by Vite in your browser (the development configuration uses port `5000`).
 
 ### Production build
 
 ```bash
-npm run typecheck
 npm run build
-npm start
+npm run start
 ```
 
-## Using the app
-
-1. Open the app and sign in with Puter.
-2. Choose **Upload Resume**.
-3. Enter the company name.
-4. Enter the target job title.
-5. Paste the job description.
-6. Upload a PDF resume.
-7. Select **Analyze Resume**.
-8. Review the ATS score, job match, keywords, and improvement suggestions.
-9. Generate a cover letter or interview preparation.
-10. Set the application status and add notes.
-
-Interview questions and generated application materials are saved with the related resume and job application.
-
-## Data and privacy
-
-Resumes may contain personal information. Resume files and application records are stored through Puter for the signed-in user.
-
-- Do not upload resumes that you do not have permission to process.
-- Review Puter's privacy and usage policies before using the app with sensitive documents.
-- Delete stored resume data when it is no longer needed.
-- Never commit `.env` files, API keys, passwords, session secrets, or private credentials.
-
-This project does not require an OpenAI API key in the source code. Replit-managed secrets remain outside the repository.
-
-## Validation
-
-Run these checks before publishing changes:
+### Type-check
 
 ```bash
 npm run typecheck
-npm run build
 ```
 
-## Replit configuration
+## How It Works
 
-The project is configured for Replit with:
+1. Sign in with Puter.
+2. Add the company name, job title, and job description.
+3. Upload a PDF resume.
+4. The app stores the PDF, converts it to an image for preview, and sends the resume with the job context to the AI service.
+5. Review scores, keyword matching, improvement suggestions, and optional application materials.
+6. Update the application status or notes as your job search progresses.
 
-- Development server port `5000`
-- Host `0.0.0.0`
-- Proxied hosts enabled
-- `npm run dev` as the workflow command
+## Project Structure
 
-## Attribution
+```text
+app/
+  components/    Reusable interface and analysis components
+  lib/           Puter, PDF conversion, and AI helpers
+  routes/        Dashboard, authentication, upload, and review pages
+constants/       AI feedback schema and analysis instructions
+public/          Static images, icons, and README media
+types/           TypeScript declarations
+```
 
-This project is based on the open-source AI Resume Analyzer project by Adrian Hajdin:
+## Privacy Note
 
-https://github.com/adrianhajdin/ai-resume-analyzer
+Resumes can contain sensitive personal information. Use test or redacted documents for demos and screenshots, and review Puter's storage and privacy settings before uploading real resumes.
 
-The current version includes additional job matching, resume improvement, cover letter, interview preparation, application tracking, dashboard filtering, and resume preview improvements.
+## License
+
+No license has been specified. Add a `LICENSE` file before distributing or open-sourcing this project.
