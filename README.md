@@ -56,7 +56,7 @@ The application uses Puter.js for authentication, file storage, key-value persis
 ### Installation
 
 ```bash
-git clone <your-repository-url>
+git clone <https://github.com/rajureal47-code/ai-resume-analyzer.git>
 cd ai-resume-analyzer
 npm install
 ```
