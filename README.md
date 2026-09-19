@@ -107,6 +107,4 @@ types/           TypeScript declarations
 
 Resumes can contain sensitive personal information. Use test or redacted documents for demos and screenshots, and review Puter's storage and privacy settings before uploading real resumes.
 
-## License
 
-No license has been specified. Add a `LICENSE` file before distributing or open-sourcing this project.
